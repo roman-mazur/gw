@@ -29,6 +29,7 @@ func main() {
 	}
 
 	gw := exec.Command(filepath.Join(cwd, name))
+	gw.Args = os.Args[1:]
 	gw.Stdout = os.Stdout
 	gw.Stdin = os.Stdin
 	err = gw.Run()
