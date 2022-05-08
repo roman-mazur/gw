@@ -21,15 +21,16 @@ func main() {
 		name = name + ".bat"
 	}
 
-	for !checkPath(cwd, name) {
-		cwd = filepath.Dir(cwd)
-		if len(cwd) < 2 {
+	gwd := cwd
+	for !checkPath(gwd, name) {
+		gwd = filepath.Dir(gwd)
+		if len(gwd) < 2 {
 			log.Fatal("gradle wrapper not found")
 		}
 	}
 
-	gw := exec.Command(filepath.Join(cwd, name))
-	gw.Args = os.Args[1:]
+	gw := exec.Command(filepath.Join(gwd, name), os.Args[1:])
+	gw.Dir = cwd
 	gw.Stdout = os.Stdout
 	gw.Stdin = os.Stdin
 	err = gw.Run()
