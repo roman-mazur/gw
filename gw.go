@@ -1,4 +1,4 @@
-// Command gw finds a Dradle wrapper (gradlew) script in the current or parent directories and runs it.
+// Command gw finds a Gradle wrapper (gradlew) script in the current or parent directories and runs it.
 package main // import "rmazur.io/gw"
 
 import (
