@@ -2,6 +2,7 @@
 package main // import "rmazur.io/gw"
 
 import (
+	"errors"
 	"log"
 	"os"
 	"os/exec"
@@ -36,8 +37,9 @@ func main() {
 	gw.Stdin = os.Stdin
 	err = gw.Run()
 	if err != nil {
-		if eErr, ok := err.(*exec.ExitError); ok {
-			os.Exit(eErr.ExitCode())
+		var exitErr *exec.ExitError
+		if errors.As(err, &exitErr) {
+			os.Exit(exitErr.ExitCode())
 		} else {
 			log.Fatalf("problems running %s: %s", gw.Path, err)
 		}
